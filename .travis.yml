@@ -11,6 +11,9 @@ script:
   - npm run test-once
 after_script:
   - cat ./coverage/PhantomJS*/lcov.info | ./node_modules/codeclimate-test-reporter/bin/codeclimate.js
+after_success:
+  - npm install -g firebase-tools
+  - if [[ "$TRAVIS_PULL_REQUEST" == "false" ]] && [[ "$TRAVIS_BRANCH" == "master" ]]; then firebase deploy; fi
 env:
   global:
     - secure: wUh/n/Yb/MsBZJt2Vwgo/M451wZzGl7lMExEem+UAHzhBXZmlYQvXZKQuF2BrhvNObxapD7KWRpwTiIr/vgPn3W3zciEWsKpbBgd9ojssRV8ZQwJ3b+4mCGeiC5mmpB7aZE3WaY0XcRPHtf4gnowslIdNGHlTvBYQtvj5JBJOOw=
